@@ -1,19 +1,6 @@
 const frames = ["assets/frame1.png", "assets/frame2.png", "assets/frame1.png", "assets/frame3.png"];
 let animationTimeout;
 
-async function suspendTab(tab) {
-  const url = tab.url || "";
-  if (
-    url === "" ||
-    url.startsWith("brave://") ||
-    url.startsWith("chrome://") ||
-    url.startsWith("about:")
-  ) return;
-
-  if (tab.active || !tab.autoDiscardable) return;
-  chrome.tabs.discard(tab.id);
-}
-
 function tabbyAnim(frame = 0, loop = 0) {
     chrome.action.setIcon({ path: frames[frame] });
     frame = (frame + 1) % frames.length;
@@ -33,10 +20,7 @@ function sleepTabs() {
     clearTimeout(animationTimeout);
 
     tabbyAnim();
-
-    chrome.tabs.query({}, (tabs) => {
-        tabs.forEach(suspendTab);
-    });
+    suspendAll();
 };
 
 document.addEventListener('DOMContentLoaded', () => {
