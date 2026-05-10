@@ -1,4 +1,4 @@
-const frames = ["assets/frame1.png", "assets/frame2.png", "assets/frame1.png", "assets/frame3.png"];
+const frames = ["assets/frame2.png", "assets/frame1.png", "assets/frame3.png"];
 let animationTimeout;
 
 function tabbyAnim(frame = 0, loop = 0) {
@@ -12,7 +12,7 @@ function tabbyAnim(frame = 0, loop = 0) {
     if (loop < 1) {
         animationTimeout = setTimeout(() => tabbyAnim(frame, loop), 200);
     } else {
-        setTimeout(() => chrome.action.setIcon({ path: frames[0] }), 200);
+        setTimeout(() => chrome.action.setIcon({ path: frames[1] }), 200);
     }
 }
 
